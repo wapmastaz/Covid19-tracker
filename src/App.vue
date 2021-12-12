@@ -5,11 +5,15 @@
       <main v-if="!isLoading" class="flex flex-col justify-center align-center">
         <data-title :title="title" :dataDate="dataDate" />
 
-        <data-boxes :stats="stats"/>
+        <data-boxes :stats="stats" />
 
         <country-select @get-country="getCountryStats" :countries="countries" />
 
-        <button @click="clearCountryData()" v-if="stats.Country" class="bg-green-700 rounded p-3 text-white shadow:md mt-10">
+        <button
+          @click="clearCountryData()"
+          v-if="stats.Country"
+          class="bg-green-700 rounded p-3 text-white shadow:md mt-10"
+        >
           Clear Country
         </button>
       </main>
@@ -25,7 +29,7 @@
 
 <script>
 import Header from "./components/Header";
-import DataTitle from "./components/DataTitle.vue"
+import DataTitle from "./components/DataTitle.vue";
 import DataBoxes from "./components/DataBoxes.vue";
 import CountrySelect from "./components/CountrySelect.vue";
 import axios from "axios";
@@ -35,7 +39,7 @@ export default {
     Header,
     DataTitle,
     DataBoxes,
-    CountrySelect
+    CountrySelect,
   },
   data() {
     return {
@@ -66,20 +70,21 @@ export default {
         });
     },
     getCountryStats(country) {
-      this.title = country.Country
-      this.stats = country
+      this.title = country.Country;
+      this.stats = country;
     },
     clearCountryData() {
       this.isLoading = true;
-      this.title = "Global"
+      this.title = "Global";
       const data = this.getCovidData();
-      this.stats = data
-      this.isLoading = false
-      
-    }
+      this.stats = data;
+      this.isLoading = false;
+    },
   },
   created() {
-    this.getCovidData();
+    setTimeout(() => {
+      this.getCovidData();
+    }, 2000);
   },
 };
 </script>
